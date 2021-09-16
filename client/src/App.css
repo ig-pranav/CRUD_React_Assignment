@@ -1,0 +1,59 @@
+.App {
+  display: flex;
+  height: 150vh;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+.inputs {
+  height: 600px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(147, 184, 214);
+
+}
+
+.inputs input {
+  width: 200px;
+  height: 50px;
+  margin: 10px;
+  font-size:18px;
+  padding-left: 10px;
+}
+
+.inputs button {
+  border: none;
+  width: 150px;
+  height: 50px;
+  background-color:rgb(240, 237, 61);
+  color: black;
+  border-radius: 8px;
+  font-size: 15px;
+
+}
+
+.inputs button:hover {
+  cursor: pointer;
+}
+
+.employee {
+  width: 1000px;
+  height: 60px;
+  background-color: rgb(252, 204, 133);
+  color: black;
+  display: flex;
+  margin: 10px;
+  font-family: 'Courier New', Courier, monospace;
+
+}
+
+inputs label {
+  color: rgb(134, 21, 21);
+}
