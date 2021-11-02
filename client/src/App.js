@@ -1,11 +1,9 @@
-import './App.css';
+import "./App.css";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 import * as ReactBootstrap from "react-bootstrap";
 
-
 function App() {
-
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
   const [designation, setDesignation] = useState("");
@@ -21,15 +19,18 @@ function App() {
       designation: designation,
       department: department,
       number: number,
-    }).then(()=> {
-      setEmployeeList([...employeeList, {
-        name: name,
-        age: age,
-        designation: designation,
-        department: department,
-        phoneNumber: number,
-      }]);
-    })
+    }).then(() => {
+      setEmployeeList([
+        ...employeeList,
+        {
+          name: name,
+          age: age,
+          designation: designation,
+          department: department,
+          phoneNumber: number,
+        },
+      ]);
+    });
   };
 
   const updateEmployee = (id) => {
@@ -47,37 +48,41 @@ function App() {
       newNumber: newNumber,
       id: id,
     }).then(() => {
-      setEmployeeList(employeeList.map((val) => {
-        return val._id === id ? {
-          _id: id,
-          name: newName,
-          age: newAge,
-          designation: newDesignation,
-          department: newDepartment,
-          phoneNumber: newNumber,
-        } : val;
-      }));
+      setEmployeeList(
+        employeeList.map((val) => {
+          return val._id === id
+            ? {
+                _id: id,
+                name: newName,
+                age: newAge,
+                designation: newDesignation,
+                department: newDepartment,
+                phoneNumber: newNumber,
+              }
+            : val;
+        })
+      );
     });
   };
 
   const deleteEmployee = (id) => {
-    Axios.delete(`http://localhost:3500/delete/${id}`)
-    .then(() => {
+    Axios.delete(`http://localhost:3500/delete/${id}`).then(() => {
       setEmployeeList(
         employeeList.filter((val) => {
           return val._id !== id;
-      }));
+        })
+      );
     });
   };
 
   useEffect(() => {
     Axios.get("http://localhost:3500/read")
-    .then((response) => {
-      setEmployeeList(response.data)
-    })
-    .catch(() => {
-      console.log("error");
-    })
+      .then((response) => {
+        setEmployeeList(response.data);
+      })
+      .catch(() => {
+        console.log("error");
+      });
   }, []);
 
   return (
@@ -85,43 +90,43 @@ function App() {
       <div className="inputs">
         <h1>Enter Employee Details</h1>
         <label>Enter the Name : </label>
-        <input 
-          type="text" 
-          placeholder="Enter Name" 
+        <input
+          type="text"
+          placeholder="Enter Name"
           onChange={(event) => {
             setName(event.target.value);
           }}
         />
         <label>Enter the Age : </label>
-        <input 
-          type="number" 
-            placeholder="Enter age"
-              onChange={(event) => {
-                setAge(event.target.value);
+        <input
+          type="number"
+          placeholder="Enter age"
+          onChange={(event) => {
+            setAge(event.target.value);
           }}
         />
         <label>Enter the Designation : </label>
-        <input 
-          type="text" 
-            placeholder="Enter Designation" 
-              onChange={(event) => {
-                setDesignation(event.target.value);
+        <input
+          type="text"
+          placeholder="Enter Designation"
+          onChange={(event) => {
+            setDesignation(event.target.value);
           }}
         />
         <label>Enter the Department : </label>
-        <input 
-          type="text" 
-            placeholder="Enter Department"
-              onChange={(event) => {
-                setDepartment(event.target.value);
+        <input
+          type="text"
+          placeholder="Enter Department"
+          onChange={(event) => {
+            setDepartment(event.target.value);
           }}
         />
         <label>Enter the Phone Number : </label>
-        <input 
-          type="number" 
-            placeholder="Enter Phone Number" 
-              onChange={(event) => {
-                setNumber(event.target.value);
+        <input
+          type="number"
+          placeholder="Enter Phone Number"
+          onChange={(event) => {
+            setNumber(event.target.value);
           }}
         />
         <button onClick={addEmployee}>Add Employees</button>
@@ -130,46 +135,54 @@ function App() {
       {/* <h1>Employees List </h1> */}
 
       <ReactBootstrap.Table striped bordered hover>
-  <thead>
-    <tr className="table-primary">
-      <th>Name</th>
-      <th>Age</th>
-      <th>Designation</th>
-      <th>Department</th>
-      <th>Phone Number</th>
-      <th>Update</th>
-      <th>Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-      {employeeList.map((val) => {
-        return (
-        <tr>
-          <td>{val.name}</td> 
-          <td>{val.age}</td> 
-          <td>{val.designation}</td> 
-          <td>{val.department}</td> 
-          <td>{val.phoneNumber}</td> 
-          <td>
-            <button 
-              class="btn btn-warning"
-                onClick={() => {
-                  updateEmployee(val._id)}}> Update
-            </button>
-          </td> 
-          <td>
-            <button
-              class="btn btn-danger"
-                onClick={() => {
-                  deleteEmployee(val._id)}}> Delete
-            </button>
-          </td> 
-        </tr>
-        );
-      })}
-    </tbody>
-  </ReactBootstrap.Table>   
-</div>
+        <thead>
+          <tr className="table-primary">
+            <th>Name</th>
+            <th>Age</th>
+            <th>Designation</th>
+            <th>Department</th>
+            <th>Phone Number</th>
+            <th>Update</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {employeeList.map((val) => {
+            return (
+              <tr>
+                <td>{val.name}</td>
+                <td>{val.age}</td>
+                <td>{val.designation}</td>
+                <td>{val.department}</td>
+                <td>{val.phoneNumber}</td>
+                <td>
+                  <button
+                    class="btn btn-warning"
+                    onClick={() => {
+                      updateEmployee(val._id);
+                    }}
+                  >
+                    {" "}
+                    Update
+                  </button>
+                </td>
+                <td>
+                  <button
+                    class="btn btn-danger"
+                    onClick={() => {
+                      deleteEmployee(val._id);
+                    }}
+                  >
+                    {" "}
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </ReactBootstrap.Table>
+    </div>
   );
 }
 
